@@ -17,7 +17,7 @@ exports.up = function(knex, Promise) {
       tbl.timestamps(true, true)
     })
   ])
-};
+}
 
 // how can I undo the changes
 exports.down = function(knex, Promise) {
