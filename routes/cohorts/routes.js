@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const db_cohorts = require('./model')
 
+//ROUTE: /api/cohorts
+
 //C
 //add new cohort
 router.post('/', async (req, res) => {
@@ -35,6 +37,18 @@ router.get('/:id', async (req, res) => {
         cohort
         ?   res.status(200).json(cohort)
         :   res.status(404).json({message: `Couldn't find cohort ${req.params.id}.`})
+    }
+    catch (err) {
+        res.status(500).json(err)
+    }
+})
+//get all students in a given cohort
+router.get('/:id/students', async (req, res) => {
+    try {
+        const students = await db_cohorts.get_students_in_cohort(req.params.id)
+        students.length > 0
+        ?   res.status(200).json(students)
+        :   res.status(400).json({message: `No students showed up to cohort ${req.params.id}.`})
     }
     catch (err) {
         res.status(500).json(err)
